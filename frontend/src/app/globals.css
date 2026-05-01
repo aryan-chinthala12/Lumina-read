@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* ── OpenDyslexic CDN Font ─────────────────────────────────────────── */
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/woff/OpenDyslexic-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/woff/OpenDyslexic-Bold.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Tailwind v4 theme tokens ──────────────────────────────────────── */
+:root {
+  --background: #0a0a12;
+  --foreground: #e8e8f0;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+  --user-line-height: 1.7;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Global resets ─────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  line-height: var(--user-line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Dyslexia-mode override ── must use !important to beat Tailwind ─ */
+.dyslexic-mode * {
+  font-family: "OpenDyslexic", sans-serif !important;
+  word-spacing: 0.15em !important;
+}
+
+/* ── Line-height slider: map CSS var to actual text elements ────────── */
+p,
+li,
+textarea,
+span {
+  line-height: var(--user-line-height, 1.7) !important;
+}
+
+.dyslexic-mode p,
+.dyslexic-mode li,
+.dyslexic-mode textarea,
+.dyslexic-mode span {
+  line-height: var(--user-line-height, 1.7) !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ── Scrollbar styling ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.4);
+  border-radius: 999px;
+}
+
+/* ── React Flow overrides ──────────────────────────────────────────── */
+.react-flow__node-default {
+  background: rgba(124, 58, 237, 0.15) !important;
+  border: 1px solid rgba(167, 139, 250, 0.35) !important;
+  border-radius: 12px !important;
+  color: #e8e8f0 !important;
+  font-size: 0.85rem !important;
+  padding: 10px 16px !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.12) !important;
+}
+
+.react-flow__edge-path {
+  stroke: rgba(167, 139, 250, 0.5) !important;
+  stroke-width: 2 !important;
+}
+
+.react-flow__background {
+  background: transparent !important;
+}
+
+/* ── Utility animations ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(124, 58, 237, 0.45);
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(124, 58, 237, 0.05) 25%,
+    rgba(124, 58, 237, 0.15) 50%,
+    rgba(124, 58, 237, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
